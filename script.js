@@ -1,71 +1,46 @@
-window.addEventListener('load', () => {
-	const form = document.getElementById("new-task-form");
-	const input = document.getElementById("new-task-input");
-	const listEle = document.getElementById("tasks");
+const input = document.querySelector("#new-task-input");
+const addTask = document.querySelector("#new-task-submit");
+const todotask = document.querySelector("#tasks");
 
-	form.addEventListener('submit', (e) => {
-		e.preventDefault();
-
-		const task = input.value;
-
-		if(!task || " "){
-			alert("Please fill out the task !");
-			return;
-		}
-
-		const taskEle = document.createElement('div');
-		taskEle.classList.add('task');
-
-		const task_contentEle = document.createElement('div');
-		task_contentEle.classList.add('content');
-
-		taskEle.appendChild(task_contentEle);
-
-		const task_inputEle = document.createElement('input');
-		task_inputEle.classList.add('text');
-		task_inputEle.type = 'text';
-		task_inputEle.value = task;
-		task_inputEle.setAttribute('readonly', 'readonly');
-
-		task_contentEle.appendChild(task_inputEle);
-
-		const task_actionsEle = document.createElement('div');
-		task_actionsEle.classList.add('actions');
-		
-		const task_editEle = document.createElement('button');
-		task_editEle.classList.add('edit');
-		task_editEle.innerText = 'Edit';
-
-		const task_deleteEle = document.createElement('button');
-		task_deleteEle.classList.add('delete');
-		task_deleteEle.innerText = 'Delete';
-
-		task_actionsEle.appendChild(task_editEle);
-		task_actionsEle.appendChild(task_deleteEle);
-
-		taskEle.appendChild(task_actionsEle);
-
-		listEle.appendChild(taskEle);
-
-		input.value = '';
-
-		task_editEle.addEventListener('click', (e) => {
-			if (task_editEle.innerText.toLowerCase() == "edit") {
-				task_editEle.innerText = "Save";
-				task_inputEle.removeAttribute("readonly");
-				task_inputEle.focus();
-			} else {
-				task_editEle.innerText = "Edit";
-				task_inputEle.setAttribute("readonly", "readonly");
-			}
-		});
-
-		task_deleteEle.addEventListener('click', (e) => {
-			listEle.removeChild(taskEle);
-		});
-	});
+input.addEventListener("keypress" , function(event){
+	if(event.key === "Enter"){
+		event.preventDefault();
+		addTask.click();
+	}
 });
 
+addTask.addEventListener("click", () => {
+	if (input.value.trim() != 0) {
+		let newTask = document.createElement("div");
+		newTask.classList.add("task");
+		newTask.innerHTML =
+			`
+				<div class="content">
+					<p class="text">${input.value}</p>
+				</div>
+				<div class="actions">
+					<button class="done">Done</button>
+					<button class="delete">Delete</button>
+				</div>
+		`
+		todotask.appendChild(newTask);
+		input.value = "";
+	} else {
+		alert("Please enter the task !");
+	}
+})
 
+todotask.addEventListener("click", (e) => {
+	if (e.target.classList.contains("done")) {	
+		e.target.parentElement.parentElement.classList.toggle("completed");
+	}
+})
 
-
+todotask.addEventListener("click", (e) => {
+	if (e.target.classList.contains("delete")) {
+		e.target.parentElement.parentElement.remove();
+	}
+	if(e.target.classList.contains('edit')){
+		input.value = '';
+	}
+})

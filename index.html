@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,33 +9,37 @@
 
 	<link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-	
+
 	<header>
 		<h1>To-Do List</h1>
-		
+
 		<div class="container">
-		<form id="new-task-form">
-			<input 
-				type="text" 
-				name="new-task-input" 
-				id="new-task-input" 
-				placeholder="Enter your task!" />
-			<input 
-				type="submit"
-				id="new-task-submit" 
-				value="Add task" />
-		</form>
-	
+			<input type="text" id="new-task-input" placeholder="Enter your task!" />
+			<button type="submit" id="new-task-submit">Add task</button>
+		</div>
 	</header>
 	<main>
 		<section class="task-list">
 			<h2>Tasks</h2>
 
 			<div id="tasks"></div>
+
+			<!-- <div class="task">
+				<div class="content">
+					<input type="text" class="text" value=" Ho jaega JS" />
+				</div>
+				<div class="actions">
+					<button class="edit">Edit</button>
+					<button class="delete">Delete</button>
+				</div>
+			</div> -->
+
 		</section>
 	</main>
-  </div>
+	</div>
 	<script src="script.js"></script>
 </body>
+
 </html>
